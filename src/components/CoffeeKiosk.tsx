@@ -10,7 +10,7 @@ interface CoffeeKioskProps {
   selectedItems: SelectedOrderItem[];
   setSelectedItems: React.Dispatch<React.SetStateAction<SelectedOrderItem[]>>;  // ✅ 이 줄만 남기기
   totalPrice: number;
-  setTotalPrice: (price: number) => void;
+  setTotalPrice((prevPrice: number) => prevPrice + finalPrice)
   quantity: number;
   setQuantity: (qty: number) => void;
   showHelp: boolean;
