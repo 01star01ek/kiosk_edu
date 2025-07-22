@@ -5,18 +5,19 @@ import styles from '@/styles/CoffeeKiosk.module.scss'
 import HelpButton from './HelpButton'
 
 interface CoffeeKioskProps {
-  currentStep: number
-  setCurrentStep: (step: number) => void
-  selectedItems: any[]
-  setSelectedItems: (items: any[]) => void
-  totalPrice: number
-  setTotalPrice: (price: number) => void
-  quantity: number
-  setQuantity: (qty: number) => void 
-  showHelp: boolean
-  setShowHelp: (show: boolean) => void
-  switchScreen: (screen: string) => void
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
+  selectedItems: SelectedOrderItem[];
+  setSelectedItems: React.Dispatch<React.SetStateAction<SelectedOrderItem[]>>;  // ✅ 이 줄만 남기기
+  totalPrice: number;
+  setTotalPrice: (price: number) => void;
+  quantity: number;
+  setQuantity: (qty: number) => void;
+  showHelp: boolean;
+  setShowHelp: (show: boolean) => void;
+  switchScreen: (screen: string) => void;
 }
+
 
 interface MenuItem {
   id: number;
