@@ -1,0 +1,184 @@
+// src/styles/MainScreen.module.scss
+.mainScreen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%); /* 배경색 변경: 더 부드러운 밝은 파란색 계열 */
+  padding: 2.5rem 1.5rem; /* 상하좌우 패딩 조절 */
+  font-family: 'Noto Sans KR', sans-serif;
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+}
+
+.container {
+  max-width: 1200px; /* 전체 컨테이너의 최대 너비 */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 1.5rem; /* 패딩 조절 */
+  margin-bottom: 2.5rem;
+  text-align: center;
+  box-sizing: border-box; /* 패딩 포함 크기 계산 */
+
+  .title {
+    font-size: 2.8rem; /* 제목 폰트 크기 키움 */
+    font-weight: 800;
+    color: #1a202c;
+    margin-bottom: 0.8rem; /* 여백 조절 */
+    line-height: 1.3; /* 줄 간격 조절 */
+    letter-spacing: -0.03em; /* 자간 조절 */
+
+    .mobileBr { /* 모바일에서만 줄 바꿈 */
+      @media (min-width: 480px) { /* 480px 이상에서는 숨김 */
+        display: none;
+      }
+    }
+  }
+
+  .subtitle {
+    font-size: 1.3rem; /* 부제목 폰트 크기 키움 */
+    color: #4a5568;
+    line-height: 1.5;
+  }
+}
+
+.kioskGrid {
+  display: grid;
+  gap: 2rem; /* 그리드 간격 조절 */
+  
+  /* 기본 (모바일) - 1열 */
+  grid-template-columns: repeat(1, 1fr);
+
+  @media (min-width: 576px) { /* 작은 태블릿, 큰 스마트폰 (가로) */
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 992px) { /* 태블릿 (가로), 작은 데스크탑 */
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  /* 1200px 이상에서는 최대 너비 제한으로 중앙 정렬됨 */
+}
+
+.kioskCard {
+  border-radius: 1.5rem; /* 모서리 둥글기 조절 */
+  padding: 2rem; /* 패딩 조절 */
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); /* 그림자 더 부드럽게 */
+  text-align: center;
+  min-height: 220px; /* 최소 높이 조절 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* 아이템 중앙 정렬 */
+
+  &:hover {
+    transform: translateY(-5px); /* 호버 시 약간 위로 이동 */
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2); /* 그림자 강화 */
+  }
+
+  &:active {
+    transform: translateY(0); /* 클릭 시 원위치 */
+  }
+
+  /* 키오스크별 색상 (색상 팔레트 조정) */
+  &.coffee {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); /* 주황색 계열 */
+  }
+
+  &.store {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%); /* 파란색 계열 */
+  }
+
+  &.civil {
+    background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%); /* 보라색 계열 */
+  }
+
+  &.train {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%); /* 초록색 계열 */
+  }
+
+  &.bus {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* 빨간색 계열 */
+  }
+
+  .kioskIcon {
+    font-size: 4.5rem; /* 아이콘 크기 조절 */
+    margin-bottom: 1.25rem; /* 여백 조절 */
+  }
+
+  .kioskName {
+    font-size: 1.8rem; /* 이름 폰트 크기 키움 */
+    font-weight: 700;
+    margin-bottom: 0.5rem; /* 여백 조절 */
+    line-height: 1.3;
+  }
+
+  .kioskDesc {
+    color: rgba(255, 255, 255, 0.95); /* 설명 텍스트 색상 대비 강화 */
+    font-size: 1.1rem; /* 설명 폰트 크기 키움 */
+    margin-bottom: 1.8rem; /* 여백 조절 */
+    line-height: 1.4;
+  }
+
+  .actionButton {
+    background: rgba(255, 255, 255, 0.2); /* 배경 투명도 조절 */
+    border-radius: 1.5rem; /* 둥글기 조절 */
+    padding: 0.8rem 1.8rem; /* 패딩 조절 */
+    font-size: 1.15rem; /* 버튼 폰트 크기 키움 */
+    font-weight: 600;
+    display: flex; /* 내부 요소 정렬 */
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* 아이콘과의 간격 */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* 테두리 추가 */
+    transition: all 0.2s ease;
+
+    b, strong { /* 굵게 표시된 텍스트 */
+      color: white;
+      font-weight: 700;
+    }
+
+    .arrow { /* 화살표 스타일 */
+      font-size: 1.15rem; /* 화살표 크기 */
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3); /* 호버 시 배경색 */
+    }
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem; /* 상단 여백 조절 */
+  width: 100%;
+
+  .backButton {
+    background: white;
+    color: #4a5568; /* 텍스트 색상 조절 */
+    padding: 1.1rem 2.2rem; /* 패딩 조절 */
+    border-radius: 1rem; /* 둥글기 조절 */
+    border: 1px solid #cbd5e1; /* 테두리 색상 조절 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); /* 그림자 조절 */
+    font-size: 1.25rem; /* 폰트 크기 키움 */
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background: #f0f4f8; /* 호버 시 배경색 */
+      transform: translateY(-2px); /* 약간의 움직임 */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

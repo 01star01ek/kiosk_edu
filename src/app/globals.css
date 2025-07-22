@@ -1,26 +1,66 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow-x: hidden;
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-touch-callout: none;
+}
+
+/* 아이패드 최적화 */
+@media screen and (min-width: 768px) and (max-width: 1366px) {
+  button, .touchable {
+    min-height: 60px;
+    min-width: 60px;
+    padding: 1rem 1.5rem;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.5rem; }
+  p, span { font-size: 1.125rem; }
+}
+
+/* 터치 디바이스 최적화 */
+@media (hover: none) and (pointer: coarse) {
+  button:hover {
+    transform: none;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 아이패드 Safe Area */
+@supports (padding: max(0px)) {
+  .safe-area-left {
+    padding-left: max(2rem, env(safe-area-inset-left));
+  }
+  
+  .safe-area-right {
+    padding-right: max(2rem, env(safe-area-inset-right));
+  }
 }

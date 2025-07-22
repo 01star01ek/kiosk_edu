@@ -1,0 +1,659 @@
+/* src/styles/ItxKiosk.module.scss */
+.itxKiosk {
+  min-height: 100vh;
+  background: #f0f0f0; /* 배경색 */
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #00469A; /* 코레일/ITX 파란색 */
+  color: white;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  height: 60px; /* 헤더 높이 */
+
+  .backButton {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &:hover { background-color: rgba(255, 255, 255, 0.3); }
+  }
+
+  .headerInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    .korailLogo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      border: 1px solid white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.2rem;
+    }
+    .currentTime {
+      font-size: 1rem;
+    }
+  }
+}
+
+/* 모든 화면의 컨테이너를 감싸는 공통 스타일 */
+.mainMenuScreen,
+.stationSelectionScreen,
+.trainSearchScreen,
+.paymentMethodSelectionScreen,
+.finalCompleteScreen {
+  flex-grow: 1; /* 남은 공간을 채움 */
+  padding: 1rem; /* 전체 패딩 조절 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px); /* 헤더 높이 제외 */
+
+  .container {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 768px; /* 이미지 기준 너비 확대 */
+    box-sizing: border-box;
+  }
+}
+
+/* 각 화면의 공통 제목 스타일 */
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Step 0: 메뉴 선택 (image_dca93e.jpg 좌측) */
+.mainMenuScreen {
+  .menuGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열 고정 */
+    gap: 1rem; /* 이미지 간격 */
+    margin-bottom: 1.5rem;
+
+    .menuButton {
+      background: #F3F3F3; /* 버튼 배경색 */
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      min-height: 120px; /* 최소 높이 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #e0e0e0;
+      }
+      &:active {
+        transform: translateY(1px);
+      }
+
+      .menuIcon {
+        font-size: 2.5rem; /* 아이콘 크기 */
+        color: #00469A; /* 아이콘 색상 */
+        margin-bottom: 0.5rem;
+      }
+      .menuText {
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: #333;
+      }
+    }
+  }
+
+  .footerButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+
+    .langButton {
+      background: #eee;
+      border: 1px solid #ccc;
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      &:hover { background-color: #ddd; }
+    }
+    .receiptButton {
+      background: #F8F8F8;
+      border: 1px solid #ccc;
+      padding: 0.5rem 1rem;
+      border-radius: 0.3rem;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      &:hover { background-color: #ddd; }
+      .receiptIcon {
+        font-size: 1.2rem;
+        color: #666;
+      }
+    }
+  }
+}
+
+/* Step 1: 역 선택 (image_d2c3b8.png 및 image_dca93e.jpg 우측) */
+.stationSelectionScreen {
+  .stationSelectHeader { /* 상단 출발/도착역 표시 영역 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background-color: #e6f7ff; /* 배경색 */
+    padding: 0.8rem 1.2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #cceeff;
+
+    .departureStationDisplay, .arrivalStationDisplay {
+      text-align: center;
+      flex: 1; /* 공간 균등 분배 */
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 0.3rem;
+      transition: background-color 0.2s, border 0.2s;
+
+      &:hover {
+        background-color: #d9f0ff;
+      }
+      &.active { /* 현재 선택 모드일 때 */
+        background-color: #cceeff;
+        border: 1px solid #00469A;
+      }
+
+      .displayLabel {
+        font-size: 0.85rem;
+        color: #666;
+        display: block;
+      }
+      .displayValue {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #00469A;
+        margin-top: 0.2rem;
+      }
+    }
+    .centerArrow {
+      font-size: 1.5rem;
+      color: #999;
+      margin: 0 0.5rem;
+    }
+    .dateAndKtxInfo { /* 날짜 및 KTX 정보 */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 0.85rem;
+      color: #666;
+      margin-left: 1rem; /* 여백 */
+      .dateInfo { font-weight: bold; }
+      .ktxInfo { color: #00469A; font-weight: bold; }
+    }
+  }
+
+  .stationMainContent { /* 탭, 검색, 역 목록 전체 */
+    display: flex;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    overflow: hidden; /* 내부 요소 경계 */
+    height: 400px; /* 고정 높이로 스크롤 영역 확보 */
+
+    .stationTabContainer {
+      flex-shrink: 0;
+      width: 120px; /* 탭 버튼 영역 너비 */
+      background: #f8f8f8;
+      border-right: 1px solid #ddd;
+      display: flex;
+      flex-direction: column;
+      
+      .stationTabButton {
+        width: 100%;
+        background: #f8f8f8;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        padding: 1rem 0.5rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #555;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        
+        &:hover { background-color: #eee; }
+        &.active {
+          background-color: white;
+          color: #00469A;
+          border-left: 3px solid #00469A; /* 활성화 시 파란색 바 */
+        }
+        &:last-child { border-bottom: none; }
+      }
+
+      .searchStationInput { /* 역 이름을 찾기 텍스트 라벨 (입력 필드 아님) */
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
+        color: #777;
+        text-align: center;
+        margin-top: auto; /* 하단으로 밀착 */
+        border-top: 1px solid #ddd;
+      }
+    }
+
+    .stationListGridContainer { /* 역 목록 그리드 영역 */
+      flex: 1; /* 남은 공간 모두 차지 */
+      overflow-y: auto; /* 역 목록 내부 스크롤 */
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 이미지와 같이 3열 */
+      gap: 1px; /* 셀 사이 얇은 경계선 */
+      background-color: white;
+      
+      .stationGridButton {
+        background: white;
+        border: 1px solid #eee; /* 얇은 경계선 */
+        padding: 1rem 0.5rem;
+        font-size: 1.1rem;
+        text-align: center;
+        cursor: pointer;
+        min-height: 50px; /* 셀 최소 높이 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+
+        &:hover:not(.disabled) { background-color: #f0f0f0; }
+        &.selected {
+          background-color: #00469A;
+          color: white;
+          font-weight: bold;
+        }
+        &.disabled { /* 선택 불가 역 스타일 */
+          background-color: #f0f0f0;
+          color: #bbb;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  .searchTrainButton {
+    background-color: #00469A;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1.5rem;
+    min-height: 60px;
+    transition: background-color 0.2s;
+
+    &:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    &:hover:not(:disabled) {
+      background-color: #00337A;
+    }
+  }
+}
+
+/* 안내 메시지 팝업 (image_dca91e.jpg 좌측) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.infoModal, .accumulateModal {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  .infoMessageTitle { /* 이미지의 'ITX-청춘' 제목 */
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #00469A;
+    margin-bottom: 0.8rem;
+  }
+  .infoMessageContent, .accumulateMessage {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  .accumulateInfo { 
+    font-size: 0.9rem;
+    color: #e74c3c; 
+    margin-bottom: 1.5rem;
+  }
+
+  .confirmButton {
+    background-color: #00469A;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover { background-color: #00337A; }
+  }
+  .accumulateButtons { 
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    .accumulateYes {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover { background-color: #218838; }
+    }
+    .accumulateNo {
+      background-color: #999;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover { background-color: #777; }
+    }
+  }
+}
+
+
+/* Step 2: 열차/좌석 조회 화면 (image_dca91e.jpg 우측) */
+.trainSearchScreen {
+  .summaryHeader { /* 이미지 상단의 여정 요약 */
+    text-align: center;
+    margin-bottom: 1.5rem;
+    background-color: #F0F8FF; /* 배경색 */
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #CCE0FF;
+    
+    .summaryJourney {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.3rem;
+    }
+    .summaryDepartureArrival {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #00469A;
+      margin-bottom: 0.5rem;
+    }
+    .summaryTimeDate {
+      font-size: 1rem;
+      color: #333;
+    }
+  }
+
+  .loadingSection { /* 이미지의 '처리중' 로딩 */
+    text-align: center;
+    padding: 3rem 0;
+    .loadingSpinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #00469A;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    .loadingText {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #00469A;
+    }
+  }
+
+  .searchResults { /* 조회 결과 테이블 */
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    overflow: hidden; /* 테이블 테두리 둥글게 */
+    margin-bottom: 1.5rem;
+
+    .trainResultTable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+
+      th, td {
+        padding: 0.8rem 0.5rem;
+        border: 1px solid #eee;
+        text-align: center;
+      }
+      th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+        color: #555;
+      }
+      td {
+        color: #333;
+        
+        .selectSeatButton {
+          background-color: #00469A;
+          color: white;
+          border: none;
+          padding: 0.5rem 0.8rem;
+          border-radius: 0.3rem;
+          font-size: 0.9rem;
+          cursor: pointer;
+          &:hover:not(:disabled) { background-color: #00337A; }
+          &:disabled { background-color: #ccc; cursor: not-allowed; }
+        }
+      }
+    }
+  }
+
+  .actionNavButtons { /* 하단 버튼들 */
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+
+    .navButton {
+      flex: 1;
+      background: #eee;
+      border: 1px solid #ccc;
+      padding: 0.8rem 1.2rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover:not(:disabled) { background-color: #ddd; }
+      &:disabled { background-color: #ccc; cursor: not-allowed; }
+    }
+    .confirmNavButton {
+      background-color: #00469A;
+      color: white;
+      &:hover:not(:disabled) { background-color: #00337A; }
+    }
+  }
+}
+
+/* Step 3: 결제 방법 선택 (image_dca8e4.jpg 좌측) */
+.paymentMethodSelectionScreen {
+  .paymentHeader { /* 결제방법 선택 상단 헤더 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  .ticketSummaryDetail { /* 티켓 요약 정보 */
+    background: #F8F8F8;
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+
+    p {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: #555;
+    }
+    .summaryRoutePrice { font-weight: bold; color: #00469A; }
+    .summaryCount { font-weight: bold; }
+    .summaryFare { font-weight: bold; color: #333; }
+
+    .totalPaymentDisplay { /* 총 결제금액 */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+      .finalAmountText {
+        font-size: 1.5rem;
+        color: #00469A;
+      }
+    }
+  }
+
+  .paymentOptionsGrid { /* 결제 수단 버튼 그리드 */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 이미지와 같이 3열 */
+    gap: 1rem;
+
+    .paymentOptionButton {
+      background-color: #F3F3F3; /* 배경색 */
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      padding: 1.5rem 1rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover { background-color: #e0e0e0; }
+    }
+  }
+}
+
+/* Step 4: 결제 완료 (최종) */
+.finalCompleteScreen {
+  .completeSummary {
+    text-align: center;
+    background: #e6f7ff; /* 배경색 */
+    border: 1px solid #99d9ea;
+    border-radius: 0.8rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+
+    .completeTicketIcon {
+      font-size: 4rem;
+      color: #00469A;
+      margin-bottom: 1rem;
+    }
+    .completeSummaryText {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .completeSummaryPrice {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #00469A;
+      margin-bottom: 0.5rem;
+    }
+  }
+  .instructionMessage {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00469A;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .finalActionButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .resetPurchaseButton {
+      background-color: #00469A;
+      color: white;
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover { background-color: #00337A; }
+    }
+    .backToMainButton {
+      background-color: #999;
+      color: white;
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover { background-color: #777; }
+    }
+  }
+}
+
+
+/* 애니메이션 */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
