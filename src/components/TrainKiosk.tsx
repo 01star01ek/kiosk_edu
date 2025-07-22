@@ -369,7 +369,7 @@ export default function TrainKiosk({
               <button onClick={handlePaymentComplete} className={styles.paymentOptionButton}>
                 <span className={styles.optionText}>현금</span>
               </button>
-              <button onClick={handlePaymentComplete} className를={styles.paymentOptionButton}>
+              <button onClick={handlePaymentComplete} className={styles.paymentOptionButton}>
                 <span className={styles.optionText}>마일리지</span>
               </button>
             </div>
