@@ -137,7 +137,7 @@ export default function CoffeeKiosk({
       disposableFeeAdded: false // 일단 false로 초기화 (일회용품 선택 단계에서 변경)
     };
 
-    setSelectedItems(prevItems => [...prevItems, newItem]);
+    setSelectedItems((prevItems: SelectedOrderItem[]) => [...prevItems, newItem]);
     setTotalPrice(prevPrice => prevPrice + finalPrice);
 
     // 모달 닫기
