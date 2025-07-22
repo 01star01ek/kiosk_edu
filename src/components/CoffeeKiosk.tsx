@@ -8,15 +8,16 @@ interface CoffeeKioskProps {
   currentStep: number;
   setCurrentStep: (step: number) => void;
   selectedItems: SelectedOrderItem[];
-  setSelectedItems: React.Dispatch<React.SetStateAction<SelectedOrderItem[]>>;  // ✅ 이 줄만 남기기
+  setSelectedItems: React.Dispatch<React.SetStateAction<SelectedOrderItem[]>>;
   totalPrice: number;
-  setTotalPrice((prevPrice: number) => prevPrice + finalPrice)
+  setTotalPrice: React.Dispatch<React.SetStateAction<number>>; // ✅ 수정된 부분
   quantity: number;
   setQuantity: (qty: number) => void;
   showHelp: boolean;
   setShowHelp: (show: boolean) => void;
   switchScreen: (screen: string) => void;
 }
+
 
 
 interface MenuItem {
